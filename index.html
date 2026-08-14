@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="curtain-intro">
 
     <!-- ═══════════════════════════════════════════════════
          SPLASH SCREEN
@@ -22,15 +22,17 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════
+         CURTAIN INTRO — WebGL / CSS 3D overlay
+    ════════════════════════════════════════════════════ -->
+    <div id="curtain-overlay" class="curtain-overlay" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
          MAIN INVITE
-    ═════════════════════════════════════x═══════════════ -->
+    ════════════════════════════════════════════════════ -->
     <main id="main" class="hidden">
 
-        <!-- HERO — theatrical curtain reveal -->
+        <!-- HERO — revealed as the curtains part -->
         <section class="hero">
-            <div class="curtain left"></div>
-            <div class="curtain right"></div>
-
             <div class="hero-content">
                 <p class="host-line">Mr &amp; Mrs Imran Shahid Butt</p>
                 <p class="host-action"><em>warmly invite you to the</em></p>
@@ -77,7 +79,7 @@
                 <div class="scratch-unit">
                     <div class="scratch-card-wrap">
                         <div class="scratch-behind">
-                            <span class="sc-value sc-day">12</span>
+                            <span class="sc-value sc-day">10</span>
                         </div>
                         <canvas class="scratch-canvas" data-idx="1"></canvas>
                     </div>
@@ -156,7 +158,7 @@
                 </div>
                 <h2 class="venue-name">Encore by Zafar Group</h2>
                 <p class="venue-city">Lahore, Pakistan</p>
-                <p class="venue-date-line">November 12, 2026 &nbsp;•&nbsp; 7:00 PM</p>
+                <p class="venue-date-line">November 10, 2026 &nbsp;•&nbsp; 7:00 PM</p>
                 <p class="venue-reception">Grand Dinner &amp; Reception</p>
             </section>
 
@@ -176,12 +178,6 @@
                         <h3>Arrival of the Baraat &nbsp;·&nbsp; <span class="prog-time">8:00 PM</span></h3>
                         <p>The groom arrives in procession with his family</p>
                         <p>Welcomed with dhol, lights &amp; celebration</p>
-                    </div>
-                    <div class="prog-rule"></div>
-                    <div class="prog-item">
-                        <h3>Takht Nashini</h3>
-                        <p>The bride &amp; groom are seated on stage together</p>
-                        <p>Photographs, blessings &amp; family moments</p>
                     </div>
                     <div class="prog-rule"></div>
                     <div class="prog-item">
@@ -283,5 +279,30 @@
     </main>
 
     <script type="module" src="script.js"></script>
+    <script>
+        // file:// cannot load ES modules — the tap handler never attaches.
+        if (location.protocol === 'file:') {
+            document.addEventListener('DOMContentLoaded', function () {
+                var label = document.querySelector('.tap-label');
+                if (label) {
+                    label.style.animation = 'none';
+                    label.style.letterSpacing = '0.08em';
+                    label.textContent = 'Open via a local server';
+                }
+                var inner = document.querySelector('.splash-inner');
+                if (!inner) return;
+                var help = document.createElement('p');
+                help.className = 'tap-label';
+                help.style.animation = 'none';
+                help.style.maxWidth = '22rem';
+                help.style.lineHeight = '1.6';
+                help.style.letterSpacing = '0.02em';
+                help.style.textTransform = 'none';
+                help.style.whiteSpace = 'pre-wrap';
+                help.textContent = 'cd ~/Documents/repos/invite\npython3 -m http.server 8765\nthen open http://127.0.0.1:8765/';
+                inner.appendChild(help);
+            });
+        }
+    </script>
 </body>
 </html>

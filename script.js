@@ -4,6 +4,7 @@
    ============================================================ */
 
 import { initSplash }                              from './js/splash.js';
+import { prepareCurtains }                         from './js/curtains3d.js';
 import { setupScratchListeners,
          initScratchCanvases,
          scheduleAutoReveal }                      from './js/scratch.js';
@@ -12,6 +13,9 @@ import { initRSVP }                                from './js/rsvp.js';
 // scroll-reveal is triggered internally by scratch.js after all cards are revealed
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Warm the WebGL house while the splash is on screen
+    prepareCurtains();
 
     // Wire up scratch card events immediately (elements exist in DOM)
     setupScratchListeners();
