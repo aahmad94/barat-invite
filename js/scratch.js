@@ -13,6 +13,13 @@ const CARD_DATA = [
 const cards    = CARD_DATA.map(() => ({ revealed: false, ctx: null }));
 const canvases = Array.from(document.querySelectorAll('.scratch-canvas'));
 
+const HANG_MS = 7000;
+const AUTO_STAGGER_MS = 280;
+
+let hangTimer    = null;
+let hangArmed    = false;
+let hangObserver = null;
+
 /* ── Drawing ──────────────────────────────────────────── */
 function drawLayer(ctx, canvas) {
     const { width: w, height: h } = canvas;
@@ -88,6 +95,7 @@ export function setupScratchListeners() {
         function doScratch(e) {
             if (!isScratching || cards[idx].revealed || !cards[idx].ctx) return;
             e.preventDefault();
+            nudgeHangTimer();
 
             const { x, y } = getPos(e);
             const ctx = cards[idx].ctx;
@@ -105,7 +113,7 @@ export function setupScratchListeners() {
             }
         }
 
-        canvas.addEventListener('mousedown',  () => { isScratching = true; });
+        canvas.addEventListener('mousedown',  () => { isScratching = true; nudgeHangTimer(); });
         canvas.addEventListener('mouseup',    () => { isScratching = false; });
         canvas.addEventListener('mouseleave', () => { isScratching = false; });
         canvas.addEventListener('mousemove',  doScratch);
@@ -116,11 +124,77 @@ export function setupScratchListeners() {
     });
 }
 
-/* ── Auto-reveal fallback (start timing after splash dismiss) */
-export function scheduleAutoReveal() {
-    canvases.forEach((_, idx) => {
-        setTimeout(() => revealCard(idx), 30000 + idx * 3000);
+/* ── Hang-time auto-unveil (7s idle while the cards are on screen) */
+function dateFullyRevealed() {
+    return cards.every(c => c.revealed);
+}
+
+function clearHangTimer() {
+    if (hangTimer == null) return;
+    clearTimeout(hangTimer);
+    hangTimer = null;
+}
+
+function armHangTimer() {
+    if (!hangArmed || dateFullyRevealed()) return;
+    clearHangTimer();
+    hangTimer = setTimeout(autoUnveilDate, HANG_MS);
+}
+
+function stopHangWatch() {
+    hangArmed = false;
+    clearHangTimer();
+    if (hangObserver) {
+        hangObserver.disconnect();
+        hangObserver = null;
+    }
+}
+
+function nudgeHangTimer() {
+    if (hangArmed) armHangTimer();
+}
+
+function autoUnveilDate() {
+    hangTimer = null;
+    if (dateFullyRevealed()) return;
+
+    const stagger = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 0
+        : AUTO_STAGGER_MS;
+
+    let step = 0;
+    cards.forEach((card, idx) => {
+        if (card.revealed) return;
+        const delay = step * stagger;
+        step += 1;
+        setTimeout(() => revealCard(idx), delay);
     });
+}
+
+export function scheduleAutoReveal() {
+    if (hangObserver || dateFullyRevealed()) return;
+
+    const target = document.querySelector('.scratch-row')
+        || document.getElementById('reveal-section');
+    if (!target || typeof IntersectionObserver === 'undefined') {
+        hangArmed = true;
+        armHangTimer();
+        return;
+    }
+
+    hangObserver = new IntersectionObserver((entries) => {
+        if (dateFullyRevealed()) {
+            stopHangWatch();
+            return;
+        }
+        const visible = entries.some(e => e.isIntersecting);
+        const becameVisible = visible && !hangArmed;
+        hangArmed = visible;
+        if (becameVisible) armHangTimer();
+        else if (!visible) clearHangTimer();
+    }, { threshold: 0.25 });
+
+    hangObserver.observe(target);
 }
 
 /* ── Reveal one card ──────────────────────────────────── */
@@ -133,7 +207,8 @@ function revealCard(idx) {
 
     document.getElementById(CARD_DATA[idx].pipId).classList.add('done');
 
-    if (cards.every(c => c.revealed)) {
+    if (dateFullyRevealed()) {
+        stopHangWatch();
         setTimeout(unlockContent, 600);
     }
 }
