@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Splash dismiss kicks off everything that needs a visible layout
     initSplash(() => {
         setTimeout(initScratchCanvases, 80); // wait for main to be painted
-        scheduleAutoReveal(); // 7s idle hang once the cards are on screen
+        scheduleAutoReveal(); // 5s idle hang once the cards are on screen
         startCountdown();
     });
 
