@@ -14,10 +14,11 @@ export function initSplash(onDismiss) {
         if (dismissed) return;
         dismissed = true;
 
-        splash.classList.add('dismissed');
-        main.classList.remove('hidden');
+        const el = document.getElementById('splash');
+        const page = document.getElementById('main');
+        el?.classList.add('dismissed');
+        page?.classList.remove('hidden');
 
-        // Draw as the splash fades — no dead hold on a closed house
         const hold = window.matchMedia('(prefers-reduced-motion: reduce)').matches
             ? 0
             : 60;
@@ -26,8 +27,25 @@ export function initSplash(onDismiss) {
         onDismiss();
     }
 
-    splash.addEventListener('click',      dismiss);
-    splash.addEventListener('touchstart', dismiss, { passive: true });
+    document.addEventListener('click', (e) => {
+        const el = document.getElementById('splash');
+        if (!el || el.classList.contains('dismissed')) return;
+        if (el.contains(e.target)) dismiss();
+    });
+    document.addEventListener('touchstart', (e) => {
+        const el = document.getElementById('splash');
+        if (!el || el.classList.contains('dismissed')) return;
+        if (el.contains(e.target)) dismiss();
+    }, { passive: true });
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const el = document.getElementById('splash');
+        if (!el || el.classList.contains('dismissed')) return;
+        dismiss();
+    });
+
+    splash?.addEventListener('click', dismiss);
+    splash?.addEventListener('touchstart', dismiss, { passive: true });
 
     if (new URLSearchParams(location.search).has('curtain')) {
         dismiss();
