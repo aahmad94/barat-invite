@@ -13,7 +13,7 @@ const CARD_DATA = [
 const cards    = CARD_DATA.map(() => ({ revealed: false, ctx: null }));
 const canvases = Array.from(document.querySelectorAll('.scratch-canvas'));
 
-const HANG_MS = 7000;
+const HANG_MS = 5000;
 const AUTO_STAGGER_MS = 280;
 
 let hangTimer    = null;
@@ -124,7 +124,7 @@ export function setupScratchListeners() {
     });
 }
 
-/* ── Hang-time auto-unveil (7s idle while the cards are on screen) */
+/* ── Hang-time auto-unveil (5s idle while the cards are on screen) */
 function dateFullyRevealed() {
     return cards.every(c => c.revealed);
 }
