@@ -7,6 +7,9 @@ const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module
 const OPEN_MS = 3400;
 const SETTLE_MS = 450;
 const FADE_MS = 400;
+// Shader starts the off-stage exit at uOpen 0.8. Unlock scroll then so
+// settle/fade of the overlay cannot trap the page for another 1–2s.
+const SCROLL_UNLOCK_AT = 0.8;
 
 let prepared = null;
 let mode = null; // 'webgl' | 'css'
@@ -454,12 +457,16 @@ function openCss() {
    PUBLIC API
    ═══════════════════════════════════════════════════════ */
 
+function unlockScroll() {
+    document.body.classList.remove('curtain-intro');
+}
+
 function forceReveal() {
     if (disposed) return;
     disposed = true;
     if (rafId) cancelAnimationFrame(rafId);
     document.body.classList.add('curtains-open');
-    document.body.classList.remove('curtain-intro');
+    unlockScroll();
     if (overlay) {
         overlay.classList.add('is-gone');
         overlay.style.pointerEvents = 'none';
@@ -505,7 +512,7 @@ export async function openCurtains() {
     if (opening || disposed) return;
     if (previewOpen() !== null) {
         document.body.classList.add('curtains-open');
-        document.body.classList.remove('curtain-intro');
+        unlockScroll();
         if (overlay) overlay.style.pointerEvents = 'none';
         if (previewOpen() >= 0.99) forceReveal();
         return;
@@ -514,6 +521,7 @@ export async function openCurtains() {
     document.body.classList.add('curtains-open');
 
     const safety = setTimeout(forceReveal, 9000);
+    let unlockTimer = 0;
 
     try {
         await prepareCurtains();
@@ -524,6 +532,10 @@ export async function openCurtains() {
         }
 
         overlay.classList.add('is-opening');
+        unlockTimer = setTimeout(
+            unlockScroll,
+            Math.round(OPEN_MS * SCROLL_UNLOCK_AT),
+        );
 
         if (mode === 'webgl') {
             await openWebGL();
@@ -539,6 +551,8 @@ export async function openCurtains() {
         console.warn('Curtain open failed.', err);
         forceReveal();
     } finally {
+        clearTimeout(unlockTimer);
         clearTimeout(safety);
+        unlockScroll();
     }
 }
