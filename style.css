@@ -278,7 +278,7 @@ body.curtains-open .hero { filter: brightness(1); }
 .bismillah,
 .ayah {
     font-family: 'Amiri', 'Noto Naskh Arabic', serif;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.45;
     color: var(--gold);
 }
