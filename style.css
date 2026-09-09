@@ -262,6 +262,80 @@ body.curtains-open .hero { filter: brightness(1); }
         );
 }
 
+.arabic-blessing {
+    position: absolute;
+    top: 14.5cqh;
+    left: 14cqi;
+    right: 14cqi;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15em;
+    pointer-events: none;
+    text-align: center;
+}
+.bismillah,
+.ayah {
+    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--gold);
+}
+.bismillah {
+    font-size: clamp(1.05rem, 6.4cqw, 1.9rem);
+    letter-spacing: 0.02em;
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.45));
+}
+.ayah {
+    font-size: clamp(0.62rem, 3.4cqw, 0.95rem);
+    opacity: 0.92;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.35);
+}
+.arabic-flourish {
+    color: var(--gold);
+    font-size: 0.55rem;
+    opacity: 0.7;
+    line-height: 1;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .bismillah {
+        background-image: linear-gradient(
+            90deg,
+            #9a7420 0%,
+            #d4af37 28%,
+            #fff4c4 50%,
+            #d4af37 72%,
+            #9a7420 100%
+        );
+        background-size: 220% 100%;
+        background-position: -120% 50%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+    body.curtains-open .bismillah {
+        animation: gold-sweep 4.2s linear infinite;
+    }
+}
+
+@keyframes gold-sweep {
+    0% { background-position: -120% 50%; }
+    100% { background-position: 120% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bismillah {
+        animation: none !important;
+        color: var(--gold);
+        -webkit-text-fill-color: var(--gold);
+        background: none;
+        filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
+    }
+}
+
 .hero-content {
     position: absolute;
     inset: 0;
@@ -1006,6 +1080,9 @@ form {
     }
     .hero-card { object-fit: cover; object-position: center; }
     .hero-content { padding: 10% 12% 18%; }
+    .arabic-blessing { top: 6%; left: 16%; right: 16%; }
+    .bismillah { font-size: clamp(0.85rem, 4.5vh, 1.3rem); }
+    .ayah { display: none; }
     .hero .barat-title { font-size: clamp(1.4rem, 7vh, 2.4rem); }
     .hero .bride-groom { font-size: clamp(1rem, 5vh, 1.6rem); }
     .scroll-hint { bottom: 3%; }
