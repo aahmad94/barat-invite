@@ -13,12 +13,14 @@ const CARD_DATA = [
 const cards    = CARD_DATA.map(() => ({ revealed: false, ctx: null }));
 const canvases = Array.from(document.querySelectorAll('.scratch-canvas'));
 
-const HANG_MS = 5000;
+const HANG_MS = 3500;
 const AUTO_STAGGER_MS = 280;
+const SCROLL_INTENT_PX = 12;
 
-let hangTimer    = null;
-let hangArmed    = false;
-let hangObserver = null;
+let hangTimer = null;
+let hangArmed = false;
+let hangScratchResetUsed = false;
+let hangScrollHandler = null;
 
 /* ── Drawing ──────────────────────────────────────────── */
 function drawLayer(ctx, canvas) {
@@ -95,7 +97,6 @@ export function setupScratchListeners() {
         function doScratch(e) {
             if (!isScratching || cards[idx].revealed || !cards[idx].ctx) return;
             e.preventDefault();
-            nudgeHangTimer();
 
             const { x, y } = getPos(e);
             const ctx = cards[idx].ctx;
@@ -113,18 +114,18 @@ export function setupScratchListeners() {
             }
         }
 
-        canvas.addEventListener('mousedown',  () => { isScratching = true; nudgeHangTimer(); });
+        canvas.addEventListener('mousedown',  () => { isScratching = true; onScratchStart(); });
         canvas.addEventListener('mouseup',    () => { isScratching = false; });
         canvas.addEventListener('mouseleave', () => { isScratching = false; });
         canvas.addEventListener('mousemove',  doScratch);
 
-        canvas.addEventListener('touchstart', e => { isScratching = true; doScratch(e); }, { passive: false });
+        canvas.addEventListener('touchstart', e => { isScratching = true; onScratchStart(); doScratch(e); }, { passive: false });
         canvas.addEventListener('touchend',   () => { isScratching = false; });
         canvas.addEventListener('touchmove',  doScratch, { passive: false });
     });
 }
 
-/* ── Hang-time auto-unveil (5s idle while the cards are on screen) */
+/* ── Hang-time auto-unveil (3.5s from scroll toward the scratcher) */
 function dateFullyRevealed() {
     return cards.every(c => c.revealed);
 }
@@ -136,7 +137,8 @@ function clearHangTimer() {
 }
 
 function armHangTimer() {
-    if (!hangArmed || dateFullyRevealed()) return;
+    if (dateFullyRevealed()) return;
+    hangArmed = true;
     clearHangTimer();
     hangTimer = setTimeout(autoUnveilDate, HANG_MS);
 }
@@ -144,14 +146,16 @@ function armHangTimer() {
 function stopHangWatch() {
     hangArmed = false;
     clearHangTimer();
-    if (hangObserver) {
-        hangObserver.disconnect();
-        hangObserver = null;
+    if (hangScrollHandler) {
+        window.removeEventListener('scroll', hangScrollHandler);
+        hangScrollHandler = null;
     }
 }
 
-function nudgeHangTimer() {
-    if (hangArmed) armHangTimer();
+function onScratchStart() {
+    if (dateFullyRevealed() || hangScratchResetUsed) return;
+    hangScratchResetUsed = true;
+    armHangTimer();
 }
 
 function autoUnveilDate() {
@@ -172,29 +176,20 @@ function autoUnveilDate() {
 }
 
 export function scheduleAutoReveal() {
-    if (hangObserver || dateFullyRevealed()) return;
+    if (hangScrollHandler || dateFullyRevealed()) return;
 
-    const target = document.querySelector('.scratch-row')
-        || document.getElementById('reveal-section');
-    if (!target || typeof IntersectionObserver === 'undefined') {
-        hangArmed = true;
-        armHangTimer();
-        return;
-    }
-
-    hangObserver = new IntersectionObserver((entries) => {
+    hangScrollHandler = () => {
         if (dateFullyRevealed()) {
             stopHangWatch();
             return;
         }
-        const visible = entries.some(e => e.isIntersecting);
-        const becameVisible = visible && !hangArmed;
-        hangArmed = visible;
-        if (becameVisible) armHangTimer();
-        else if (!visible) clearHangTimer();
-    }, { threshold: 0.25 });
+        if (hangArmed) return;
+        if (window.scrollY < SCROLL_INTENT_PX) return;
+        armHangTimer();
+    };
 
-    hangObserver.observe(target);
+    window.addEventListener('scroll', hangScrollHandler, { passive: true });
+    hangScrollHandler();
 }
 
 /* ── Reveal one card ──────────────────────────────────── */
