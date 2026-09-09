@@ -264,7 +264,7 @@ body.curtains-open .hero { filter: brightness(1); }
 
 .arabic-blessing {
     position: absolute;
-    top: 19cqh;
+    top: 20cqh;
     left: 14cqi;
     right: 14cqi;
     z-index: 3;
@@ -283,12 +283,12 @@ body.curtains-open .hero { filter: brightness(1); }
     color: var(--gold);
 }
 .bismillah {
-    font-size: clamp(1.2rem, 7.2cqw, 2.15rem);
+    font-size: clamp(1.32rem, 7.8cqw, 2.35rem);
     letter-spacing: 0.02em;
     filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.45));
 }
 .ayah {
-    font-size: clamp(0.72rem, 4cqw, 1.1rem);
+    font-size: clamp(0.8rem, 4.4cqw, 1.22rem);
     opacity: 0.95;
     filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.35));
 }
@@ -315,7 +315,7 @@ body.curtains-open .hero { filter: brightness(1); }
             #9a7420 100%
         );
         background-size: 200% 100%;
-        background-position: 100% 50%;
+        background-position: 0% 50%;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -328,8 +328,8 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 
 @keyframes gold-sweep {
-    from { background-position: 100% 50%; }
-    to   { background-position: 0% 50%; }
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1088,8 +1088,8 @@ form {
     .hero-card { object-fit: cover; object-position: center; }
     .hero-content { padding: 10% 12% 18%; }
     .arabic-blessing { top: 8%; left: 16%; right: 16%; }
-    .bismillah { font-size: clamp(0.95rem, 5vh, 1.45rem); }
-    .ayah { font-size: clamp(0.7rem, 3.2vh, 0.95rem); }
+    .bismillah { font-size: clamp(1.05rem, 5.4vh, 1.55rem); }
+    .ayah { font-size: clamp(0.78rem, 3.5vh, 1.05rem); }
     .hero .barat-title { font-size: clamp(1.4rem, 7vh, 2.4rem); }
     .hero .bride-groom { font-size: clamp(1rem, 5vh, 1.6rem); }
     .scroll-hint { bottom: 3%; }
