@@ -30,6 +30,14 @@
     font-display: swap;
     src: url("assets/fonts/cmu-serif-bolditalic.woff2") format("woff2");
 }
+@font-face {
+    font-family: "ED Lavonia";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("assets/fonts/ED-Lavonia-Regular.woff2") format("woff2"),
+         url("assets/fonts/ED-Lavonia-Regular.otf") format("opentype");
+}
 
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
@@ -50,7 +58,7 @@
     --text:       #e8e8e8;
     --muted:      #888;
     --ff-serif:   "CMU Serif", "Latin Modern Roman", Georgia, serif;
-    --ff-script:  "ED Lavonia", "Lavonia Classy", "Great Vibes", cursive;
+    --ff-script:  "ED Lavonia", "Lavonia Classy", cursive;
     --ff-sans:    "Inter", system-ui, sans-serif;
     --ease-expo:  cubic-bezier(0.87, 0, 0.13, 1);
     --ease-soft:  cubic-bezier(0.4, 0, 0.2, 1);
