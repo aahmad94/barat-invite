@@ -114,17 +114,17 @@ body.curtain-intro {
 }
 
 .splash-monogram {
-    font-family: var(--ff-script);
+    font-family: var(--ff-serif);
     font-size: clamp(3.5rem, 14vw, 7rem);
     color: var(--gold);
     letter-spacing: -0.02em;
-    line-height: 1.15;
+    line-height: 1;
     animation: pulseGold 2.4s ease-in-out infinite;
 }
 .mono-amp {
-    font-style: normal;
-    color: var(--gold);
-    font-size: 0.85em;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 0.75em;
 }
 
 .splash-rule {
