@@ -1030,7 +1030,7 @@ form {
 .section-thankyou.visible { opacity: 1; transform: translateY(0); }
 
 .ty-ornament {
-    font-size: 1.15rem;
+    font-size: 2rem;
     color: var(--gold);
     opacity: 0.55;
     margin-bottom: 14px;
