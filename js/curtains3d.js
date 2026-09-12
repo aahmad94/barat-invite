@@ -148,7 +148,9 @@ void main() {
     vec3 pW  = wp.xyz;
     vec3 pxW = (modelMatrix * vec4(px, 1.0)).xyz;
     vec3 pyW = (modelMatrix * vec4(py, 1.0)).xyz;
-    vec3 nW  = normalize(cross(pyW - pW, pxW - pW));
+    vec3 nW  = cross(pyW - pW, pxW - pW);
+    float nLen = length(nW);
+    nW = nLen > 1e-5 ? nW / nLen : vec3(0.0, 0.0, 1.0);
     if (uFlip > 0.5) nW = -nW;
 
     vUv       = uv;
@@ -181,6 +183,8 @@ float hash(vec2 p) {
 void main() {
     vec3 N = normalize(vNormal);
     vec3 V = normalize(uCamPos - vWorldPos);
+    if (!(dot(N, N) > 0.5)) N = vec3(0.0, 0.0, 1.0);
+    if (dot(N, V) < 0.0) N = -N;
     vec3 L1 = normalize(vec3( 0.12, 0.82, 0.68));
     vec3 L2 = normalize(vec3(-0.35, 0.22, 0.55));
     vec3 L3 = normalize(vec3( 0.35, 0.18, 0.60));
@@ -204,10 +208,11 @@ void main() {
     col += rim   * vec3(0.055, 0.018, 0.022);
     col += sheen * vec3(0.09, 0.032, 0.038);
 
-    float valley = clamp(-vFold * 8.5, 0.0, 1.0);
-    col *= 1.0 - valley * 0.85;
-    col *= 0.62 + vShade * 0.28;
+    float valley = clamp(-vFold * 4.0, 0.0, 1.0);
+    col *= 1.0 - valley * 0.32;
+    col *= 0.82 + vShade * 0.18;
     col += vec3(0.05, 0.016, 0.02) * clamp(vFold * 4.2, 0.0, 1.0) * 0.18;
+    col = max(col, deep * 0.75);
 
     float n1 = hash(vUv * vec2(180.0, 320.0));
     float n2 = hash(vUv * vec2(72.0, 140.0) + 2.4);
