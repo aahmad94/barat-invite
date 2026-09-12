@@ -811,6 +811,13 @@ form {
     transition: border-color 0.3s;
     resize: vertical;
 }
+.field textarea {
+    min-height: 5rem;
+    height: 5rem;
+    max-height: 7.5rem;
+    padding-top: 22px;
+    resize: none;
+}
 .field input:focus,
 .field textarea:focus { border-color: var(--gold); }
 
@@ -970,13 +977,14 @@ form {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 18px;
+    padding: 12px 16px;
+    min-height: 44px;
     background: var(--gold);
     color: var(--ink);
     border: none;
     border-radius: 6px;
     font-family: var(--ff-sans);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1011,10 +1019,10 @@ form {
 .section-thankyou.visible { opacity: 1; transform: translateY(0); }
 
 .ty-ornament {
-    font-size: 2rem;
+    font-size: 1.15rem;
     color: var(--gold);
-    opacity: 0.5;
-    margin-bottom: 24px;
+    opacity: 0.55;
+    margin-bottom: 14px;
 }
 .ty-heading {
     font-family: var(--ff-serif);
