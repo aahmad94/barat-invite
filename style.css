@@ -411,7 +411,7 @@ body.curtains-open .hero { filter: brightness(1); }
 .golden-amp {
     font-family: var(--ff-serif);
     font-size: clamp(0.85rem, 4cqw, 1.25rem);
-    color: var(--gold);
+    color: var(--cream);
     font-style: italic;
     line-height: 1;
     margin: 0;
