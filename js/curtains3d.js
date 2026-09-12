@@ -190,10 +190,10 @@ void main() {
     float wrap2 = dot(N, L2) * 0.5 + 0.5;
     float ndl1 = max(dot(N, L1), 0.0);
 
-    // OLED jet black — valleys crush to 0; gold is braid-only
-    vec3 deep = vec3(0.0, 0.0, 0.0);
-    vec3 pile = vec3(0.012, 0.012, 0.014);
-    vec3 lift = vec3(0.038, 0.039, 0.044);
+    // Deep red-black velvet — a little redder than the splash
+    vec3 deep = vec3(0.078, 0.018, 0.024);
+    vec3 pile = vec3(0.13, 0.032, 0.042);
+    vec3 lift = vec3(0.20, 0.05, 0.062);
 
     vec3 col = mix(deep, pile, wrap1);
     col += pile * wrap2 * 0.10;
@@ -201,13 +201,13 @@ void main() {
 
     float rim   = pow(1.0 - ndv, 2.8);
     float sheen = pow(1.0 - ndv, 4.2) * ndl1;
-    col += rim   * vec3(0.028, 0.028, 0.032);
-    col += sheen * vec3(0.055, 0.055, 0.062);
+    col += rim   * vec3(0.055, 0.018, 0.022);
+    col += sheen * vec3(0.09, 0.032, 0.038);
 
     float valley = clamp(-vFold * 8.5, 0.0, 1.0);
     col *= 1.0 - valley * 0.85;
     col *= 0.62 + vShade * 0.28;
-    col += vec3(0.028, 0.028, 0.032) * clamp(vFold * 4.2, 0.0, 1.0) * 0.18;
+    col += vec3(0.05, 0.016, 0.02) * clamp(vFold * 4.2, 0.0, 1.0) * 0.18;
 
     float n1 = hash(vUv * vec2(180.0, 320.0));
     float n2 = hash(vUv * vec2(72.0, 140.0) + 2.4);
@@ -225,7 +225,7 @@ void main() {
     float gspec = pow(max(dot(R, V), 0.0), 32.0);
     col = mix(col, gold * (0.48 + wrap1 * 0.55) + vec3(1.0, 0.88, 0.52) * gspec * 0.7, g);
 
-    col += vec3(0.04, 0.04, 0.045) * max(dot(N, L3), 0.0) * 0.10;
+    col += vec3(0.06, 0.02, 0.025) * max(dot(N, L3), 0.0) * 0.10;
 
     gl_FragColor = vec4(col, 1.0);
 }
@@ -301,7 +301,7 @@ function renderFrame(time, open, settle) {
         u.uCamPos.value.copy(camera.position);
     }
     const veil = Math.max(0, 1 - open * 5.5);
-    overlay.style.backgroundColor = `rgba(0, 0, 0, ${veil.toFixed(3)})`;
+    overlay.style.backgroundColor = `rgba(28, 10, 14, ${veil.toFixed(3)})`;
     renderer.render(scene, camera);
 }
 
