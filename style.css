@@ -379,7 +379,7 @@ body.curtains-open .hero { filter: brightness(1); }
     font-family: var(--ff-serif);
     font-size: calc(clamp(1.35rem, 8.5cqw, 2.5rem) - 2px);
     color: var(--gold);
-    letter-spacing: 0.16em;
+    letter-spacing: 0.1em;
     line-height: 1;
     margin: 0.08em 0 0.04em;
 }
@@ -400,7 +400,7 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 .bride-groom {
     font-family: var(--ff-script);
-    font-size: calc(clamp(0.95rem, 5cqw, 1.65rem) + 1.5px);
+    font-size: calc(clamp(0.95rem, 5cqw, 1.65rem) + 2.5px);
     color: var(--cream);
     font-weight: 400;
     font-style: normal;
@@ -1063,7 +1063,7 @@ form {
 }
 
 @media (max-width: 400px) {
-    .barat-title { letter-spacing: 7px; }
+    .barat-title { letter-spacing: 0.1em; }
     .scratch-row { gap: 8px; }
     .countdown-grid { gap: 14px; }
     .cd-unit span { font-size: 2.4rem; }
