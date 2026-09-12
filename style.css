@@ -49,8 +49,8 @@
     /* Red — backgrounds only */
     --red:        #e8192c;
     --red-dim:    rgba(232,25,44,0.22);
-    --ak:         #a82d3a;
-    --ak-light:   #c94a56;
+    --ak:         #8b1520;
+    --ak-light:   #c43342;
 
     /* Neutrals */
     --ink:        #0a0a0a;
@@ -122,28 +122,26 @@ body.curtain-intro {
     color: var(--ak);
     letter-spacing: -0.02em;
     line-height: 1;
-    animation: pulseMaroon 2.4s ease-in-out infinite;
 }
 .mono-amp {
     font-style: italic;
     font-weight: 400;
-    color: var(--ak-light);
+    color: var(--ak);
     font-size: 0.75em;
-    animation: pulseMaroonAmp 2.4s ease-in-out infinite;
 }
 
 .splash-rule {
     width: 60px;
     height: 1px;
-    background: var(--gold);
-    opacity: 0.5;
+    background: var(--ak);
+    opacity: 0.45;
 }
 
 .splash-sub {
     font-family: "Playfair Display", var(--ff-serif);
     font-size: 1rem;
     letter-spacing: 6px;
-    color: var(--gold);
+    color: var(--ak);
     text-transform: uppercase;
 }
 
@@ -156,9 +154,37 @@ body.curtain-intro {
     animation: blink 2.2s ease-in-out infinite;
 }
 
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .splash-monogram,
+    .mono-amp {
+        background-image: linear-gradient(
+            90deg,
+            #6e1018 0%,
+            #6e1018 38%,
+            #8b1520 46%,
+            #c43342 50%,
+            #8b1520 54%,
+            #6e1018 62%,
+            #6e1018 100%
+        );
+        background-size: 280% 100%;
+        background-position: 0% 50%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: gold-sweep 4.2s linear infinite;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .splash-monogram,
-    .mono-amp { animation: none; color: var(--ak); }
+    .mono-amp {
+        animation: none !important;
+        color: var(--ak);
+        -webkit-text-fill-color: var(--ak);
+        background: none;
+    }
 }
 
 /* ── CURTAIN OVERLAY ─────────────────────────────────── */
@@ -1095,14 +1121,6 @@ form {
 }
 
 /* ── ANIMATIONS ──────────────────────────────────────── */
-@keyframes pulseMaroon {
-    0%, 100% { color: #7a1e28; text-shadow: none; }
-    50%      { color: #c43b48; text-shadow: 0 0 2px rgba(196, 59, 72, 0.5); }
-}
-@keyframes pulseMaroonAmp {
-    0%, 100% { color: #a82d3a; text-shadow: none; }
-    50%      { color: #d45a66; text-shadow: 0 0 2px rgba(212, 90, 102, 0.5); }
-}
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
