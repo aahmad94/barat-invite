@@ -164,7 +164,7 @@ body.curtain-intro {
     position: fixed;
     inset: 0;
     z-index: 80;
-    background: #000;
+    background: #1c0a0e;
     pointer-events: auto;
     overflow: hidden;
     perspective: 1400px;
@@ -206,12 +206,12 @@ body.curtain-intro {
     background:
         linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.45) 100%),
         linear-gradient(90deg,
-            #000000 0%,
-            #0a0a0a 22%,
-            #121212 38%,
-            #000000 50%,
-            #0c0c0c 64%,
-            #000000 100%);
+            #140608 0%,
+            #2a0c12 22%,
+            #3a1018 38%,
+            #1a080c 50%,
+            #2e0e14 64%,
+            #120508 100%);
     box-shadow:
         inset 4px 0 12px rgba(0,0,0,0.35),
         inset -4px 0 12px rgba(0,0,0,0.25);
