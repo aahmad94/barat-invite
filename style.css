@@ -342,7 +342,7 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 .bismillah-mark {
     display: block;
-    width: clamp(5.4rem, 34cqw, 8.4rem);
+    width: clamp(2.15rem, 13.6cqw, 3.35rem);
     height: auto;
 }
 
