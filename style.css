@@ -49,8 +49,6 @@
     /* Red — backgrounds only */
     --red:        #e8192c;
     --red-dim:    rgba(232,25,44,0.22);
-    --ak:         #8b1520;
-    --ak-light:   #c43342;
 
     /* Neutrals */
     --ink:        #0a0a0a;
@@ -116,33 +114,34 @@ body.curtain-intro {
 }
 
 .splash-monogram {
-    display: inline-block;
     font-family: "Playfair Display", var(--ff-serif);
     font-size: clamp(3.5rem, 14vw, 7rem);
     font-weight: 400;
-    color: var(--ak);
+    color: var(--gold);
     letter-spacing: -0.02em;
     line-height: 1;
+    animation: pulseGold 2.4s ease-in-out infinite;
 }
 .mono-amp {
-    display: contents;
     font-style: italic;
     font-weight: 400;
+    color: var(--gold-light);
     font-size: 0.75em;
+    animation: pulseGoldAmp 2.4s ease-in-out infinite;
 }
 
 .splash-rule {
     width: 60px;
     height: 1px;
-    background: var(--ak);
-    opacity: 0.45;
+    background: var(--gold);
+    opacity: 0.5;
 }
 
 .splash-sub {
     font-family: "Playfair Display", var(--ff-serif);
     font-size: 1rem;
     letter-spacing: 6px;
-    color: var(--ak);
+    color: var(--gold);
     text-transform: uppercase;
 }
 
@@ -155,36 +154,9 @@ body.curtain-intro {
     animation: blink 2.2s ease-in-out infinite;
 }
 
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-    .splash-monogram {
-        background-image: linear-gradient(
-            90deg,
-            #6e1018 0%,
-            #6e1018 40%,
-            #8b1520 44%,
-            #a32230 47%,
-            #a32230 53%,
-            #8b1520 56%,
-            #6e1018 60%,
-            #6e1018 100%
-        );
-        background-size: 300% 100%;
-        background-position: 0% 50%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-        animation: gold-sweep 12s linear infinite;
-    }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .splash-monogram {
-        animation: none !important;
-        color: var(--ak);
-        -webkit-text-fill-color: var(--ak);
-        background: none;
-    }
+    .splash-monogram,
+    .mono-amp { animation: none; color: var(--gold); }
 }
 
 /* ── CURTAIN OVERLAY ─────────────────────────────────── */
@@ -371,18 +343,18 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 .bismillah,
 .ayah {
-    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+    font-family: "Aref Ruqaa", "Amiri", "Noto Naskh Arabic", serif;
     font-weight: 700;
-    line-height: 1.45;
+    line-height: 1.55;
     color: var(--gold-light);
     filter: none;
 }
 .bismillah {
-    font-size: clamp(0.95rem, 5.2cqw, 1.65rem);
-    letter-spacing: 0.02em;
+    font-size: clamp(1.05rem, 5.8cqw, 1.85rem);
+    letter-spacing: 0.01em;
 }
 .ayah {
-    font-size: clamp(0.62rem, 3.3cqw, 0.98rem);
+    font-size: clamp(0.7rem, 3.6cqw, 1.1rem);
     opacity: 1;
 }
 .arabic-flourish {
@@ -488,12 +460,12 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 .bride-groom {
     font-family: var(--ff-script);
-    font-size: clamp(0.95rem, 5cqw, 1.65rem);
+    font-size: clamp(1.2rem, 6.6cqw, 2.05rem);
     color: var(--cream);
     font-weight: 400;
     font-style: normal;
     letter-spacing: 0.01em;
-    line-height: 1.2;
+    line-height: 1.15;
     max-width: 100%;
 }
 .golden-amp {
@@ -1125,6 +1097,14 @@ form {
 }
 
 /* ── ANIMATIONS ──────────────────────────────────────── */
+@keyframes pulseGold {
+    0%, 100% { color: #c49a2e; text-shadow: none; }
+    50%      { color: #e8cc6a; text-shadow: 0 0 2px rgba(232, 204, 106, 0.55); }
+}
+@keyframes pulseGoldAmp {
+    0%, 100% { color: #d4af37; text-shadow: none; }
+    50%      { color: #f3e08a; text-shadow: 0 0 2px rgba(243, 224, 138, 0.55); }
+}
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
@@ -1159,7 +1139,7 @@ form {
     .bismillah { font-size: clamp(0.85rem, 4.6vh, 1.3rem); }
     .ayah { font-size: clamp(0.58rem, 3vh, 0.88rem); }
     .hero .barat-title { font-size: clamp(1.1rem, 6vh, 1.9rem); }
-    .hero .bride-groom { font-size: clamp(0.9rem, 4.6vh, 1.4rem); }
+    .hero .bride-groom { font-size: clamp(1.05rem, 5.2vh, 1.7rem); }
 }
 
 @supports not (height: 100dvh) {
