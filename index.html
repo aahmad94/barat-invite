@@ -11,11 +11,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png?v=5">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png?v=5">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=5">
-    <link rel="stylesheet" href="style.css?v=33">
+    <link rel="stylesheet" href="style.css?v=34">
     <link rel="preload" as="image" type="image/webp" href="assets/hero-card.webp?v=1">
     <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cmu-serif-roman.woff2" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="assets/fonts/ED-Lavonia-Regular.woff2" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="curtain-intro">
 
@@ -52,10 +52,17 @@
                         fetchpriority="high">
                 </picture>
                 <div class="hero-copy">
-                    <div class="arabic-blessing" lang="ar" dir="rtl">
-                        <p class="bismillah" title="In the name of Allah, the Most Gracious, the Most Merciful">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-                        <span class="arabic-flourish" aria-hidden="true">✦</span>
-                        <p class="ayah" title="And We made you into nations and tribes so that you may know one another">وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا</p>
+                    <div class="arabic-blessing">
+                        <picture>
+                            <source type="image/webp" srcset="assets/bismillah.webp">
+                            <img
+                                class="bismillah-mark"
+                                src="assets/bismillah.png"
+                                width="640"
+                                height="640"
+                                alt="Bismillah ir-Rahman ir-Rahim — In the name of Allah, the Most Gracious, the Most Merciful"
+                                decoding="async">
+                        </picture>
                     </div>
                     <div class="invite-body">
                         <div class="invite-lede">
