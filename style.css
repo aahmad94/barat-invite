@@ -92,7 +92,7 @@ body.curtain-intro {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: var(--ink);
+    background: #10080a;
     display: flex;
     align-items: center;
     justify-content: center;
