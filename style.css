@@ -1099,11 +1099,11 @@ form {
 /* ── ANIMATIONS ──────────────────────────────────────── */
 @keyframes pulseGold {
     0%, 100% { color: #c49a2e; text-shadow: none; }
-    50%      { color: #e8cc6a; text-shadow: 0 0 2px rgba(232, 204, 106, 0.55); }
+    50%      { color: #d4b44a; text-shadow: 0 0 2px rgba(212, 180, 74, 0.4); }
 }
 @keyframes pulseGoldAmp {
     0%, 100% { color: #d4af37; text-shadow: none; }
-    50%      { color: #f3e08a; text-shadow: 0 0 2px rgba(243, 224, 138, 0.55); }
+    50%      { color: #e0c45e; text-shadow: 0 0 2px rgba(224, 196, 94, 0.4); }
 }
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
