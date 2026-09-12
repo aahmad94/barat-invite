@@ -73,7 +73,7 @@
 html { scroll-behavior: smooth; background: #2a0a10; }
 
 body {
-    font-family: var(--ff-sans);
+    font-family: var(--ff-serif);
     background: #2a0a10;
     color: var(--text);
     line-height: 1.7;
@@ -559,6 +559,12 @@ body.curtains-open .hero { filter: brightness(1); }
     font-weight: 400;
     margin-bottom: 48px;
     line-height: 1.2;
+}
+.scratch-heading {
+    font-size: clamp(1.05rem, 5.2vw, 1.65rem);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    margin-bottom: 36px;
 }
 
 /* ── SCRATCH SECTION (full-height gating) ────────────── */
