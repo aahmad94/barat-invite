@@ -783,7 +783,6 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 .rsvp-section .section-tag { margin-bottom: 16px; }
 .rsvp-section .section-heading { margin-bottom: 22px; }
-.rsvp-section .field { margin-bottom: 12px; }
 .rsvp-section .party-size-field.visible { margin-bottom: 12px; }
 .rsvp-section .field input,
 .rsvp-section .select-field select {
@@ -799,7 +798,7 @@ body.curtains-open .hero { filter: brightness(1); }
 }
 
 form {
-    max-width: 520px;
+    max-width: 400px;
     margin: 0 auto;
     text-align: left;
 }
@@ -807,7 +806,7 @@ form {
 /* Floating-label fields */
 .field {
     position: relative;
-    margin-bottom: 22px;
+    margin-bottom: 12px;
 }
 .field input,
 .field textarea {
@@ -933,7 +932,7 @@ form {
 
 /* Radio group */
 .radio-group {
-    margin-bottom: 8px;
+    margin-bottom: 14px;
 }
 .radio-label {
     color: var(--muted);
