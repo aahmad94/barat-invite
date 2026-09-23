@@ -30,15 +30,6 @@
     font-display: swap;
     src: url("assets/fonts/cmu-serif-bolditalic.woff2") format("woff2");
 }
-@font-face {
-    font-family: "ED Lavonia";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("assets/fonts/ED-Lavonia-Regular.woff2") format("woff2"),
-         url("assets/fonts/ED-Lavonia-Regular.otf") format("opentype");
-}
-
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
     /* Gold — all text accents & highlights */
@@ -59,7 +50,6 @@
     --muted:      #888;
     --cream:      #fdf2ce;
     --ff-serif:   "CMU Serif", "Latin Modern Roman", Georgia, serif;
-    --ff-script:  "ED Lavonia", "Lavonia Classy", cursive;
     --ff-sans:    "Inter", system-ui, sans-serif;
     --ease-expo:  cubic-bezier(0.87, 0, 0.13, 1);
     --ease-soft:  cubic-bezier(0.4, 0, 0.2, 1);
@@ -269,7 +259,6 @@ body.curtains-open .hero { filter: brightness(1); }
     height: auto;
     margin-inline: auto;
     flex-shrink: 0;
-    container-type: inline-size;
     overflow: hidden;
     line-height: 0;
 }
@@ -280,141 +269,19 @@ body.curtains-open .hero { filter: brightness(1); }
     background: #410c12;
 }
 
+.hero-title {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 0;
+}
+
 .hero-card {
     position: relative;
     z-index: 0;
     display: block;
     width: 100%;
     height: auto;
-}
-
-/* Inner solid field is ~50% of the rug — center the copy there */
-.hero-copy {
-    position: absolute;
-    z-index: 2;
-    top: 17.5%;
-    bottom: 16.5%;
-    left: 25%;
-    width: 50%;
-    max-width: 50%;
-    padding: 5px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0;
-    line-height: 1.3;
-    font-family: var(--ff-serif);
-    text-shadow: none;
-    overflow: hidden;
-}
-.hero-copy > * {
-    max-width: 100%;
-}
-.hero-copy p,
-.hero-copy h1 {
-    max-width: 100%;
-    overflow-wrap: break-word;
-}
-
-.invite-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.28em;
-    width: 100%;
-    flex: 1 1 auto;
-    min-height: 0;
-    padding-top: 0.55em;
-}
-
-.arabic-blessing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    pointer-events: none;
-    width: 100%;
-    flex-shrink: 0;
-    padding: 0.35em 0 0.2em;
-    line-height: 0;
-}
-.bismillah-mark {
-    display: block;
-    width: clamp(2.3rem, 14.5cqw, 3.58rem);
-    height: auto;
-}
-
-.invite-lede,
-.barat-title,
-.couple-block {
-    text-shadow: 0 2px 10px rgba(12, 0, 4, 0.55);
-}
-
-.invite-lede {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.15em;
-    width: 100%;
-}
-
-.host-line {
-    font-family: var(--ff-serif);
-    font-size: clamp(0.6rem, 2.9cqw, 0.84rem);
-    color: var(--cream);
-    letter-spacing: 0.04em;
-    line-height: 1.25;
-}
-.host-action {
-    font-family: var(--ff-serif);
-    font-size: clamp(0.62rem, 2.8cqw, 0.84rem);
-    color: var(--cream);
-    margin-top: 0;
-    line-height: 1.3;
-}
-
-.barat-title {
-    font-family: var(--ff-serif);
-    font-size: calc(clamp(1.35rem, 8.5cqw, 2.5rem) - 2px);
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    line-height: 1;
-    margin: 0.08em 0 0.04em;
-}
-
-.of-sister {
-    font-family: var(--ff-serif);
-    font-size: clamp(0.6rem, 2.6cqw, 0.8rem);
-    color: var(--cream);
-    line-height: 1.3;
-}
-
-.couple-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.12em;
-    width: 100%;
-}
-.bride-groom {
-    font-family: var(--ff-script);
-    font-size: calc(clamp(0.95rem, 5cqw, 1.65rem) + 2.5px);
-    color: var(--cream);
-    font-weight: 400;
-    font-style: normal;
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-    max-width: 100%;
-}
-.golden-amp {
-    font-family: var(--ff-serif);
-    font-size: clamp(0.85rem, 4cqw, 1.25rem);
-    color: var(--cream);
-    font-style: italic;
-    line-height: 1;
-    margin: 0;
 }
 
 /* ── SECTION SHELL ───────────────────────────────────── */
@@ -1081,7 +948,6 @@ form {
 }
 
 @media (max-width: 400px) {
-    .barat-title { letter-spacing: 0.1em; }
     .scratch-row { gap: 8px; }
     .countdown-grid { gap: 14px; }
     .cd-unit span { font-size: 2.4rem; }
@@ -1090,8 +956,8 @@ form {
 }
 
 @media (orientation: landscape) {
-    /* Don't squash the rug into the short viewport — keep it near
-       portrait size so type stays inside the inner field. Scroll instead. */
+    /* Don't squash the card into the short viewport — keep it near
+       portrait size so the wording stays readable. Scroll instead. */
     .hero-stage {
         width: min(92vw, 26rem);
         max-height: none;
