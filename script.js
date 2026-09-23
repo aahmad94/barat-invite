@@ -10,7 +10,7 @@ import {
     initScratchCanvases,
     scheduleAutoReveal,
 } from './js/scratch.js';
-import { startCountdown } from './js/countdown.js';
+import { startCountdown } from './js/countdown.js?v=4';
 import { initRSVP } from './js/rsvp.js';
 
 function boot() {

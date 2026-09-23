@@ -1,8 +1,9 @@
 /* ============================================================
    countdown.js — Live countdown to the Barat
+   Target is 10 Nov 2026, 7:00 PM Pakistan Standard Time (UTC+5).
    ============================================================ */
 
-const TARGET = new Date('2026-11-10T19:00:00');
+const TARGET = new Date('2026-11-10T19:00:00+05:00');
 
 function pad(n) {
     return String(n).padStart(2, '0');
